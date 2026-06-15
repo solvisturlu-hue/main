@@ -224,14 +224,14 @@ export default function DashboardPage() {
 
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
             <StatCard
-              label="Avg Weekly Miles"
-              value={stats?.avgWeeklyMiles ?? 0}
-              unit="mi"
+              label="Avg Weekly Volume"
+              value={stats?.avgWeeklyKm ?? 0}
+              unit="km"
             />
             <StatCard
               label="Longest Run"
               value={stats?.longestRun ?? 0}
-              unit="mi"
+              unit="km"
             />
             <StatCard
               label="Consistency"
@@ -333,7 +333,7 @@ export default function DashboardPage() {
                           whiteSpace: 'nowrap',
                         }}
                       >
-                        {run.distance} mi
+                        {run.distance} km
                       </td>
                       <td
                         style={{

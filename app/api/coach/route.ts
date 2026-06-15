@@ -42,9 +42,9 @@ export async function POST(request: Request): Promise<Response> {
 
 TRAINING DATA:
 - Total runs analyzed: ${stats.totalRuns}
-- Avg weekly mileage (last 12 weeks): ${stats.avgWeeklyMiles} miles
-- Recent 4-week load: ${stats.recentLoad} miles
-- Longest run: ${stats.longestRun} miles
+- Avg weekly volume (last 12 weeks): ${stats.avgWeeklyKm} km
+- Recent 4-week load: ${stats.recentLoad} km
+- Longest run: ${stats.longestRun} km
 - Training consistency: ${stats.consistency}% of weeks active
 - Estimated paces: ${paceStr}
 

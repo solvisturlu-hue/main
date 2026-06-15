@@ -16,7 +16,7 @@ export interface RecentRun {
 
 export interface TrainingStats {
   totalRuns: number;
-  avgWeeklyMiles: number;
+  avgWeeklyKm: number;
   recentLoad: number;
   longestRun: number;
   consistency: number;
@@ -25,8 +25,8 @@ export interface TrainingStats {
   athlete: { firstname: string; lastname: string; profile: string } | null;
 }
 
-function metersToMiles(meters: number): number {
-  return meters / 1609.344;
+function metersToKm(meters: number): number {
+  return meters / 1000;
 }
 
 function formatPace(secondsPerKm: number): string {
@@ -56,7 +56,7 @@ export function analyzeActivities(
   if (activities.length === 0) {
     return {
       totalRuns: 0,
-      avgWeeklyMiles: 0,
+      avgWeeklyKm: 0,
       recentLoad: 0,
       longestRun: 0,
       consistency: 0,
@@ -82,22 +82,22 @@ export function analyzeActivities(
     (a) => new Date(a.start_date) >= fourWeeksAgo
   );
 
-  // Average weekly miles (last 12 weeks)
-  const totalMilesLast12 = last12Weeks.reduce(
-    (sum, a) => sum + metersToMiles(a.distance),
+  // Average weekly km (last 12 weeks)
+  const totalKmLast12 = last12Weeks.reduce(
+    (sum, a) => sum + metersToKm(a.distance),
     0
   );
-  const avgWeeklyMiles = Math.round((totalMilesLast12 / 12) * 10) / 10;
+  const avgWeeklyKm = Math.round((totalKmLast12 / 12) * 10) / 10;
 
-  // Recent load (last 4 weeks total miles)
+  // Recent load (last 4 weeks total km)
   const recentLoad = Math.round(
-    last4Weeks.reduce((sum, a) => sum + metersToMiles(a.distance), 0) * 10
+    last4Weeks.reduce((sum, a) => sum + metersToKm(a.distance), 0) * 10
   ) / 10;
 
-  // Longest run ever (in miles)
+  // Longest run ever (in km)
   const longestRun =
     Math.round(
-      Math.max(...activities.map((a) => metersToMiles(a.distance))) * 10
+      Math.max(...activities.map((a) => metersToKm(a.distance))) * 10
     ) / 10;
 
   // Consistency: % of last 12 weeks that had at least one run
@@ -147,7 +147,7 @@ export function analyzeActivities(
 
   const recentRuns: RecentRun[] = sortedActivities.slice(0, 5).map((a) => ({
     name: a.name,
-    distance: Math.round(metersToMiles(a.distance) * 100) / 100,
+    distance: Math.round(metersToKm(a.distance) * 10) / 10,
     date: new Date(a.start_date_local).toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -158,7 +158,7 @@ export function analyzeActivities(
 
   return {
     totalRuns: activities.length,
-    avgWeeklyMiles,
+    avgWeeklyKm,
     recentLoad,
     longestRun,
     consistency,
