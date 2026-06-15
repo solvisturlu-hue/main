@@ -9,10 +9,8 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-
-const CLIENT_ID = process.env.STRAVA_CLIENT_ID || '258193';
-const CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET || 'c09ab42716aef98353b74a10ae15a748ee6f05e0';
+const CLIENT_ID = '258193';
+const CLIENT_SECRET = 'c09ab42716aef98353b74a10ae15a748ee6f05e0';
 const PORT = 3737;
 const REDIRECT_URI = `http://localhost:${PORT}/callback`;
 
